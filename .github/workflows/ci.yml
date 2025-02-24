@@ -34,7 +34,7 @@ jobs:
         env:
           _ZIP_X_: -x "out/*" -x ".github/*"
         run: |
-          zip -r c-linux-${{ env._A_MARK_ }}.zip out/ ${{ env._ZIP_X_ }}
+          zip -r c-linux-${{ env._A_MARK_ }}.zip ./* ${{ env._ZIP_X_ }}
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -66,7 +66,7 @@ jobs:
         env:
           _ZIP_X_: -x "out/*" -x ".github/*"
         run: |
-          zip -r c-macos-${{ env._A_MARK_ }}.zip out/ ${{ env._ZIP_X_ }}
+          zip -r c-macos-${{ env._A_MARK_ }}.zip ./* ${{ env._ZIP_X_ }}
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -103,7 +103,7 @@ jobs:
         echo "_A_MARK_=$(uname -m)-${{ matrix.CC }}" >> $GITHUB_ENV
     - name: Build and Test
       env:
-        _CFG_OPT_: --with-release=no --with-optimize=no --with-symbol=yes
+        _CFG_OPT_:
         CC: ${{ matrix.CC }}
       run: |
          ./test.sh
@@ -111,7 +111,7 @@ jobs:
       env:
         _ZIP_X_: -x "out/*" -x ".github/*"
       run: |
-        zip -r c-windows-${{ env._A_MARK_ }}.zip out/ ${{ env._ZIP_X_ }}
+        zip -r c-windows-${{ env._A_MARK_ }}.zip ./* ${{ env._ZIP_X_ }}
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v4
       with:
