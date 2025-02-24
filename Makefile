@@ -34,10 +34,6 @@ include out/Makefile
 posix_prefix := posix
 posix_root := ${POSIX_ROOT}
 
-ifeq ($(posix_root),)
-posix_root ?= $(CURDIR)
-endif
-
 INC += -I$(posix_root)
 
 ifeq ($(use_sanitize), yes)
