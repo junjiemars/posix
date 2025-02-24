@@ -1,0 +1,110 @@
+# ed
+**/ed.hup
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# ai
+.prompt
+.context
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+erf
+*.dSYM/
+*.i
+*.dylib
+*.pdb
+*.pid
+*.conf
+
+# objs directory
+objs/
+out/
+**/dist
+
+# makefiles
+/Makefile
+objs/Makefile
+
+# editor swap files
+*.swp
+*.nvimlog
+
+# vscode files
+.vscode/
+
+# Nore
+/configure
+auto/
+nore/
+.nore/
+*.lis
+
+# txt files
+*.txt
+!**/CMakeLists.txt
+
+# etags/ctags
+**/TAGS
+**/tags
+**/*.tags
+
+# darwin
+.DS_Store
+
+# materials
+.materials
+.rect_s
+.symbol
+
+# org mode
+*.pdf
+*.tex
+**/*.html
+**/*.odt
+
+# info mode
+*.tgz
+*.dvi
+*.doc
+*.aux
+*.cp
+*.fn
+*.ky
+*.log
+*.pg
+*.tmp
+*.toc
+*.tp
+*.vr
+
+# clangd
+.cache
+compile_commands.json
+**/.clang-format
+**/.cc-fmt*.c
