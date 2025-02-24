@@ -8,7 +8,7 @@
 
 
 if [ -z "$POSIX_ROOT" ]; then
-  POSIX_ROOT="."
+  POSIX_ROOT="$(pwd)"
   flag="POSIX_ROOT" op=":=" value="$POSIX_ROOT" . ${NORE_ROOT}/auto/make_define
 fi
 
