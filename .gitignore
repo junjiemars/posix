@@ -46,6 +46,7 @@ erf
 objs/
 out/
 **/dist
+test
 
 # makefiles
 /Makefile

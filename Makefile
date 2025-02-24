@@ -32,7 +32,7 @@ posix_test: posix_npstd_test                    \
 include out/Makefile
 
 posix_prefix := posix
-posix_root := ${POSIX_ROOT}
+posix_root := $(POSIX_ROOT)
 
 INC += -I$(posix_root)
 
