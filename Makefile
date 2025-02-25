@@ -97,7 +97,7 @@ posix_getopt_c :=
 ifeq ($(CC_NAME), msvc)
 posix_getopt_h := $(posix_root)/getopt.h
 posix_getopt_c := $(posix_root)/getopt.c
-posix_getopt_repo = https://raw.githubusercontent.com/alex85k/wingetopt/master/src/
+posix_getopt_repo = https://raw.githubusercontent.com/junjiemars/wingetopt/master/src/
 
 $(posix_getopt_h):
 	curl -sLo $@ $(posix_getopt_repo)getopt.h
