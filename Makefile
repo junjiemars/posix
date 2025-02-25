@@ -29,7 +29,9 @@ posix_test: posix_npstd_test                    \
 
 
 # env
+ifeq ($(flavor NM_MAKEFILE_DEF),undefined)
 include out/Makefile
+endif
 
 posix_prefix := posix
 posix_root := ${POSIX_ROOT}
