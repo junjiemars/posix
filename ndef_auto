@@ -95,7 +95,7 @@ if [ "$ndef_atomic" = "yes" -a -z "$ndef_atomic_done" ]; then
 	nm_feature_name="nm_have_atomic"
 	nm_feature_run=
 	nm_feature_h='#include <stdatomic.h>'
-	nm_feature_flags="$CFLAGS $nm_c11_atomic_opt"
+	nm_feature_flags="$CFLAGS $nm_atomic_opt"
 	nm_feature_test='_Atomic(int) a; (void)atomic_init(&a,1);'
 	. ${NORE_ROOT}/auto/feature
   ndef_atomic_done="yes"

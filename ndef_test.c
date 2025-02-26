@@ -137,7 +137,6 @@ void
 test_atomic (void)
 {
 #if (NM_HAVE_ATOMIC)
-
   _Atomic (int) a;
   atomic_init (&a, 1);
   atomic_fetch_add (&a, 2);
