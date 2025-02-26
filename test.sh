@@ -74,7 +74,7 @@ test_do() {
   else
     echo "# ${_WIN_ENV_MSVC_} $_WIN_ENV_ ./configure $cfg"
     echo "------------"
-    ${_WIN_ENV_MSVC_} "$_WIN_ENV_" "./configure trace ${cfg}" "make test"
+    ${_WIN_ENV_MSVC_} "$_WIN_ENV_" "./configure ${cfg}" "make test"
   fi
   rc=$?
   if [ 0 -ne $rc ]; then
