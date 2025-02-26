@@ -128,15 +128,20 @@ $(posix_nlim_binout): $(posix_root)/nlim_test.c
 posix_ndef_binout := $(bin_path)/$(posix_prefix)_ndef$(bin_ext)
 posix_ndef_cppout := $(tmp_path)/$(posix_prefix)_ndef$(cpp_ext)
 
+posix_ndef_cflags := $(CFLAGS)
+ifeq ($(CC_NAME),msvc)
+posix_ndef_cflags += $(nm_c11_atomic_opt)
+endif
+
 posix_ndef: $(posix_ndef_binout)
 posix_ndef_test: posix_ndef
 	$(posix_ndef_binout)
 
 $(posix_ndef_binout): $(posix_ndef_cppout)
-	$(CC) $(CFLAGS) $< $(bin_out)$@
+	$(CC) $(posix_ndef_cflags) $< $(bin_out)$@
 
 $(posix_ndef_cppout): $(posix_root)/ndef_test.c
-	$(CC) $(CPPFLAGS) $(CFLAGS) $(INC) $(nm_stage_pre) $< $(cpp_out)$@
+	$(CC) $(CPPFLAGS) $(posix_ndef_cflags) $(INC) $(nm_stage_pre) $< $(cpp_out)$@
 
 
 # nint
