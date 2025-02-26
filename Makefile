@@ -36,7 +36,7 @@ endif
 posix_prefix := posix
 posix_root := ${POSIX_ROOT}
 
-INC += -I$(posix_root)
+INC += $(nm_inc_opt)$(posix_root)
 
 ifeq ($(use_sanitize), yes)
 CFLAGS += $(f_sanitize)

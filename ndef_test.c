@@ -8,11 +8,12 @@ static void check_ndef (void);
 static void test_unused (int);
 static void test_unused_fn (void);
 static void test_fallthrough (int);
-
-static void test_restrict (const int *restrict, const char *restrict);
 static void test_static_assert (void);
-static void test_alignof (void);
+static void test_restrict (const int *restrict, const char *restrict);
+
 static void test_alignas (void);
+static void test_alignof (void);
+static void test_atomic (void);
 static void test_generic (void);
 
 static void test_str (void);
@@ -32,18 +33,9 @@ main (int argc, char **argv)
   test_restrict ((const int *restrict)&argc, (const char *restrict)argv[0]);
   test_static_assert ();
 
-#if (NM_HAVE_ALIGNOF)
   test_alignof ();
-#else
-  printf ("!no `alignof' found\n");
-#endif
-
-#if (NM_HAVE_ALIGNAS)
   test_alignas ();
-#else
-  printf ("!no `alignas' found\n");
-#endif
-
+  test_atomic ();
   test_generic ();
 
   test_str ();
@@ -61,7 +53,7 @@ check_ndef (void)
 #ifdef __has_attribute
   printf ("__has_attribute defined\n");
 #else
-  printf ("__has_attribute no defined\n");
+  printf ("!no `__has_attribute' found\n");
 #endif
 }
 
@@ -93,32 +85,34 @@ void
 test_restrict (__attribute__ ((unused)) const int *restrict ii,
                __attribute__ ((unused)) const char *restrict ss)
 {
-#if !(NM_HAVE_RESTRICT)
-  printf ("%s no `restrict' found\n");
-#else
+#if (NM_HAVE_RESTRICT)
   assert (ii != 0 && ss != 0);
+  printf ("__restrict defined\n");
+#else
+  printf ("no `__restrict' found\n");
 #endif
 }
 
 void
 test_static_assert (void)
 {
-#if !(NM_HAVE_STATIC_ASSERT)
-  printf ("%s no `static_assert' found\n");
-#else
   static_assert (sizeof (char) == 1, "sizeof(char) must be 1 byte");
+#if (NM_HAVE_STATIC_ASSERT)
+  printf ("_Static_assert defined\n");
+#else
+  printf ("!no `_Static_assert' found\n");
 #endif
 }
 
 void
 test_alignof (void)
 {
+#if (NM_HAVE_ALIGNOF)
   struct X
   {
     char c;
     int i;
   };
-
   size_t alignof_char = alignof (char);
   assert (alignof_char == 1);
   assert (alignof (short) == 2);
@@ -129,11 +123,31 @@ test_alignof (void)
   assert (alignof (struct X) == sizeof (int));
   assert (sizeof (struct X) == alignof (struct X) * 2);
   assert (alignof (struct X) == sizeof (int));
+  printf ("_Alignof defined\n");
+#else
+  printf ("!no `_Alignof' found\n");
+#endif
+}
+
+void
+test_atomic (void)
+{
+#if (NM_HAVE_ATOMIC)
+#include <stdatomic.h>
+  _Atomic (int) a;
+  atomic_init (&a, 1);
+  atomic_fetch_add (&a, 2);
+  assert (a == 3);
+  printf ("_Atomic defined\n");
+#else
+  printf ("!no `_Atomic' found\n");
+#endif
 }
 
 void
 test_alignas (void)
 {
+#if (NM_HAVE_ALIGNAS)
   struct X
   {
     short s;
@@ -159,15 +173,17 @@ test_alignas (void)
   __attribute__ ((unused)) char alignas (double) c1 = 'A';
   assert (_m_ (c1, sizeof (double)));
 #undef _m_
+
+  printf ("_Alignas defined\n");
+#else
+  printf ("!no `_Alignas' found\n");
+#endif
 }
 
 void
 test_generic (void)
 {
-#if !(NM_HAVE_GENERIC)
-  printf ("%s: no `generic' found\n", __FUNCTION__);
-#else
-
+#if (NM_HAVE_GENERIC)
 #define _ndef_test_generic_(x)                                                \
   generic ((x), int : 1, double : 2, default : 'a')
 
@@ -178,7 +194,9 @@ test_generic (void)
   assert (2 == _ndef_test_generic_ (d) && "double");
   assert ('a' == _ndef_test_generic_ (a) && "default");
 #undef _ndef_test_generic_
-
+  printf ("_Generic defined\n");
+#else
+  printf ("!no `_Generic' found\n");
 #endif /* NM_HAVE_GENERIC */
 }
 

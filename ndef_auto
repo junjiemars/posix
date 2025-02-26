@@ -19,6 +19,7 @@ if [    "$ndef___func__" = "yes"                \
      -o "$ndef_bool" = "yes"                    \
      -o "$ndef_alignas" = "yes"                 \
      -o "$ndef_alignof" = "yes"                 \
+     -o "$ndef_atomic" = "yes"                  \
      -o "$ndef_complex" = "yes"                 \
      -o "$ndef_generic" = "yes"                 \
      -o "$ndef_restrict" = "yes"                \
@@ -82,9 +83,22 @@ if [ "$ndef_alignof" = "yes" -a -z "$ndef_alignof_done" ]; then
 	nm_feature_run=
 	nm_feature_h=
 	nm_feature_flags="$CFLAGS"
-	nm_feature_test='int a = (int) _Alignof(short); (void) sizeof(a);'
+	nm_feature_test='int a = (int)_Alignof(short); (void)sizeof(a);'
 	. ${NORE_ROOT}/auto/feature
   ndef_alignof_done="yes"
+fi
+
+# check atomic
+#----------------------------------------
+if [ "$ndef_atomic" = "yes" -a -z "$ndef_atomic_done" ]; then
+	nm_feature="_Atomic"
+	nm_feature_name="nm_have_atomic"
+	nm_feature_run=
+	nm_feature_h='#include <stdatomic.h>'
+	nm_feature_flags="$CFLAGS"
+	nm_feature_test='_Atomic(int) a; (void)atomic_init(&a,1);'
+	. ${NORE_ROOT}/auto/feature
+  ndef_atomic_done="yes"
 fi
 
 
