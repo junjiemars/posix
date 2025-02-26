@@ -4,6 +4,10 @@
 #include <stdio.h>
 #include <string.h>
 
+#if (NM_HAVE_ATOMIC)
+#include <stdatomic.h>
+#endif
+
 static void check_ndef (void);
 static void test_unused (int);
 static void test_unused_fn (void);
@@ -133,7 +137,7 @@ void
 test_atomic (void)
 {
 #if (NM_HAVE_ATOMIC)
-#include <stdatomic.h>
+
   _Atomic (int) a;
   atomic_init (&a, 1);
   atomic_fetch_add (&a, 2);

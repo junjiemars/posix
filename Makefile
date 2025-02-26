@@ -96,7 +96,7 @@ posix_getopt_test: posix_getopt
 	$(posix_getopt_binout) -rabc -o123 -n	-N
 
 posix_getopt_c :=
-ifeq ($(CC_NAME), msvc)
+ifeq ($(CC_NAME),msvc)
 posix_getopt_h := $(posix_root)/getopt.h
 posix_getopt_c := $(posix_root)/getopt.c
 posix_getopt_repo = https://raw.githubusercontent.com/junjiemars/wingetopt/master/src/
@@ -130,7 +130,7 @@ posix_ndef_cppout := $(tmp_path)/$(posix_prefix)_ndef$(cpp_ext)
 
 posix_ndef_cflags := $(CFLAGS)
 ifeq ($(CC_NAME),msvc)
-posix_ndef_cflags += $(nm_c11_atomic_opt)
+posix_ndef_cflags += $(nm_atomic_opt)
 endif
 
 posix_ndef: $(posix_ndef_binout)
